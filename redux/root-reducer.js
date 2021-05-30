@@ -1,7 +1,11 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from './auth/auth.reducer'
+import subjectTestsReducer from "./subjetTests/subjectTests.reducer";
+import testReducer from "./test/test.reducer";
 
 
 export default combineReducers({
-    auth:authReducer
+    auth: authReducer,
+    subjectTest: subjectTestsReducer,
+    test: testReducer
 })
