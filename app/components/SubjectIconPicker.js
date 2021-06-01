@@ -1,8 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import BiologyIocn from '../assets/BiologyIcon'
 import HistoryIcon from '../assets/HistoryIcon'
-import SubjectPlaceholderIcon from '../assets/SubjectPlaceholderIcon'
 import { SubjectEnum } from '../constants/Subjects'
 
 export const SubjectIconPicker = ({ name }) => {

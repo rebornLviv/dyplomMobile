@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { checkEmail, login, register, sendSmsToPhone } from "./auth.actions";
+import { checkEmail, getUserProfile, login, register, sendSmsToPhone } from "./auth.actions";
 
 const initialState = {
     email: '',
@@ -8,6 +8,7 @@ const initialState = {
     phone: '',
     token: '',
     username: '',
+    avatar: null,
     error: null,
     loading: false
 }
@@ -62,14 +63,15 @@ export default createReducer(initialState, builder =>
             state.loading = true
             state.error = null
         })
-        .addCase(sendSmsToPhone.fulfilled, (state, action) => {
-            // state = { ...action.payload, ...state }
-            // state.loading = false
-            // state.error = null
-        })
         .addCase(sendSmsToPhone.rejected, (state, { error }) => {
             state.loading = false
             state.error = error.message ?? defaultError
+        })
+        .addCase(getUserProfile.fulfilled, (state, { payload }) => {
+            const { email, avatar, username } = payload
+            state.avatar = avatar
+            state.email = email
+            state.username = username
         })
 
         .addCase(logoutUser, state => {

@@ -5,5 +5,6 @@ export default Colors = {
     dGrey: '#848A9D',
     gray: '#848A9D',
     success: '#59A96F',
-    error: '#F3565F'
+    error: '#F3565F',
+    white: 'white'
 }

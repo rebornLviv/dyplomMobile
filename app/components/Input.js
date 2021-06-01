@@ -7,7 +7,7 @@ import UserIcon from '../assets/UserIcon'
 import EyeIcon from '../assets/EyeIcon'
 import FriendsIcon from '../assets/FriendsIcon'
 
-const Input = ({ mode, setValue, inputValue }) => {
+const Input = ({ mode, setValue, inputValue, notEditable }) => {
 
     const { cont, leftIcon, phoneCont, labelCont, inputCont, label, input, rightIcon, eye } = styles
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -105,8 +105,8 @@ const Input = ({ mode, setValue, inputValue }) => {
                 <View style={inputCont}>
                     {mode === "phone" && (
                         <>
-                            <Text>+380</Text>
-                            <TextInput value={inputValue} style={input} onChangeText={numberHandler} keyboardType="number-pad" placeholder="(67) 2345 221" />
+                            {!notEditable && <Text>+380</Text>}
+                            <TextInput value={inputValue} style={input} onChangeText={numberHandler} keyboardType="number-pad" editable={!notEditable} placeholder="(67) 2345 221" />
                         </>
 
 
@@ -122,7 +122,7 @@ const Input = ({ mode, setValue, inputValue }) => {
 
                     }
                     {mode === 'email' && <TextInput value={inputValue} style={input} onChangeText={setValue} placeholder="Ваш емейл" />}
-                    {mode === 'name' && <TextInput value={inputValue} style={input} onChangeText={setValue} placeholder="Ваше ім'я" />}
+                    {mode === 'name' && <TextInput value={inputValue} style={input} onChangeText={setValue} placeholder="Ваше ім'я" editable={!notEditable} />}
 
                 </View>
 

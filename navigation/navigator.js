@@ -2,20 +2,21 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from '../app/screens/auth/Login';
 import Registration from '../app/screens/auth/Registration';
+import Login from '../app/screens/auth/Login'
 import Verification from '../app/screens/auth/Verification';
 import CreateProfile from '../app/screens/auth/CreateProfile';
 import { SafeAreaView, Text } from 'react-native';
 import Home from '../app/screens/home/Home';
 import Profile from '../app/screens/profile/Profile';
-import Friends from '../app/screens/friends/Friends';
+import Statistics from '../app/screens/statistics/Statistics';
 import HomeIcon from '../app/assets/HomeIcon';
 import UserIcon from '../app/assets/UserIcon';
-import FriendsIcon from '../app/assets/FriendsIcon';
 import Colors from '../app/constants/Colors';
 import Tests from '../app/screens/tests/Tests';
 import TestItem from '../app/screens/test/TestItem';
+import StatisticIcon from '../app/assets/StatisticsIcon';
+import EditProfile from '../app/screens/profile/EditProfile';
 
 
 const Auth = createStackNavigator()
@@ -23,18 +24,20 @@ const HomeNav = createStackNavigator()
 const Tab = createBottomTabNavigator()
 const Main = createStackNavigator()
 const SubjectTests = createStackNavigator()
+const ProfileNav = createStackNavigator()
 export const routeNames = {
     home: 'Home',
     profile: 'Profile',
-    friends: 'Friends',
+    statisitics: 'Statistics',
     subject: 'Subject',
-    test: 'Test'
+    test: 'Test',
+    editProfile: 'EditProfile'
 
 
 }
 const tabIconOptions = (Icon, label) =>
 ({
-    tabBarIcon: ({ focused }) => <Icon focused={focused} />,
+    tabBarIcon: ({ focused }) => <Icon color={focused ? Colors.main : Colors.dGrey} />,
     tabBarLabel: ({ focused }) => <Text style={{ color: focused ? Colors.main : Colors.dGrey, fontSize: 10 }}>{label}</Text>
 })
 
@@ -53,14 +56,21 @@ const MainNavigator = () => (
     </Main.Navigator>
 )
 
+const ProfileStack = () => (
+    <ProfileNav.Navigator screenOptions={{ headerShown: false }} >
+        <ProfileNav.Screen name={routeNames.profile} component={Profile} />
+        <ProfileNav.Screen name={routeNames.editProfile} component={EditProfile} />
+    </ProfileNav.Navigator>
+
+)
 const TabNavigation = () => (
     <Tab.Navigator
         initialRouteName='Home'
     >
 
-        <Tab.Screen options={tabIconOptions(UserIcon, routeNames.profile)} name='Profile' component={Profile} />
-        <Tab.Screen options={tabIconOptions(HomeIcon, routeNames.home)} name='Home' component={HomeStack} />
-        <Tab.Screen options={tabIconOptions(FriendsIcon, routeNames.friends)} name='Friends' component={Friends} />
+        <Tab.Screen options={tabIconOptions(UserIcon, 'Профіль')} name={routeNames.profile} component={ProfileStack} />
+        <Tab.Screen options={tabIconOptions(HomeIcon, 'Предмети')} name={routeNames.home} component={HomeStack} />
+        <Tab.Screen options={tabIconOptions(StatisticIcon, 'Статистика')} name={routeNames.statisitics} component={Statistics} />
     </Tab.Navigator>
 )
 

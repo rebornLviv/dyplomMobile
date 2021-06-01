@@ -8,6 +8,7 @@ import { getTestsBySubject } from '../../../redux/subjetTests/subjectTests.actio
 import { setTest } from '../../../redux/test/test.actions'
 import CustomHeader from '../../components/CustomHeader'
 import LoadingWrapper from '../../components/LoadingWrapper'
+import Colors from '../../constants/Colors'
 
 
 
@@ -21,10 +22,13 @@ const Tests = ({ navigation, route: { params } }) => {
     }
     const TestListItem = useCallback(({ item, index }) => (
         <TouchableOpacity style={styles.testItemCont} onPress={() => goToTest(item)}>
-            <Text> Тест {index + 1
-            }</Text>
+            <Text style={styles.testItemText}> {item.title}</Text>
+            <Text style={styles.testItemCount}>Кількість запитань {item?.tests?.length ?? 0}</Text>
         </TouchableOpacity>
     ), [])
+    const goToStats = () => navigation.navigate(routeNames.statisitics, {
+        subject: params.subject
+    })
     useEffect(
         () => {
             dispatch(getTestsBySubject(params?.subject))
@@ -32,11 +36,10 @@ const Tests = ({ navigation, route: { params } }) => {
     )
     return (
         <>
-            <CustomHeader title={params?.title ?? 'Предмет'} />
+            <CustomHeader title={params?.title ?? 'Предмет'} canGoBack goToStats={goToStats} />
             {!testsLoading ? <FlatList
                 contentContainerStyle={{ alignSelf: 'center' }}
                 data={tests}
-                numColumns={2}
                 renderItem={TestListItem}
             /> : <LoadingWrapper />}
 
@@ -50,10 +53,21 @@ const styles = StyleSheet.create({
     testItemCont: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 156,
-        height: 156,
         borderRadius: 8,
+        marginHorizontal: 20,
+        height: 200,
         backgroundColor: 'white',
         margin: 10
+    },
+    testItemText: {
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: '600'
+    },
+    testItemCount: {
+        textAlign: 'center',
+        paddingTop: 20,
+        color: Colors.dGrey
+
     }
 })

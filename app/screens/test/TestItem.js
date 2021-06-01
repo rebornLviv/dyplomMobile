@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
+import { sendUserStatistics } from '../../../api/subjectTestsApi'
 import { calculateTestResult } from '../../../utils/helpers'
 import CrossIcon from '../../assets/CrossIcon'
 import ResetIcon from '../../assets/ResetIcon'
@@ -19,6 +20,7 @@ const TestItem = () => {
     const navigation = useNavigation()
     const { sequenceContainer, container, testTitle } = styles
     const { test } = useSelector(state => state.test)
+    const authState = useSelector(state => state.auth)
     const [answerHandler, updateAnswerHandler] = useState(test.tests.map(el => ({ type: el.content.type, selected: null })))
     const [currentTest, setCurrentTest] = useState(0)
     const isLastTest = useMemo(() => currentTest + 1 > test?.tests?.length - 1, [currentTest])
@@ -43,9 +45,21 @@ const TestItem = () => {
                     let results = calculateTestResult(test.tests, answerHandler)
                     console.log('got results', { results })
                     setFinalResults(results)
-                } catch (error) {
-                    console.log('got error in calc', error)
+                    sendUserStatistics({
+                        correct: results.score,
+                        subject: test.subject,
+                        wrong: results.wrongAnswers,
+                        missed: results.skippedTests,
+                        total: results.maxScore,
+                        userId: authState.id,
+                        testWrapID: test.id,
+                        testTitle: test.title
+                    })
+                } catch {
+
                 }
+
+
 
             }
         }, [isLastTest, currentTest]
@@ -55,7 +69,7 @@ const TestItem = () => {
         <View>
             { !showResults &&
                 <>
-                    <CustomHeader title={'Test'} />
+                    <CustomHeader title={'Test'} canGoBack isTest />
                     <View style={styles.mainTestBody}>
                         <View style={sequenceContainer}>
                             <Text>{`${currentTest + 1}`}/{test?.tests?.length?.toString()}</Text>

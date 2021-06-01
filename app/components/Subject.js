@@ -5,17 +5,16 @@ import { routeNames } from '../../navigation/navigator'
 import Colors from '../constants/Colors'
 import { SubjectIconPicker } from './SubjectIconPicker'
 
-const Subject = ({ item: { title, subject, testNum } }) => {
+const Subject = ({ item: { title, subject } }) => {
     const navigation = useNavigation()
-    const { container, subjectTitle, testNumber } = styles
+    const { container, subjectTitle } = styles
     return (
         <TouchableOpacity style={container} onPress={() => navigation.navigate(routeNames.subject, {
             screen: routeNames.subject,
             params: { subject, title },
         })}>
             <SubjectIconPicker name={subject} />
-            <Text style={subjectTitle}>{title}</Text>
-            {/* <Text style={testNumber}>{testNum} тестів</Text> */}
+            <Text adjustsFontSizeToFit style={subjectTitle}>{title}</Text>
         </TouchableOpacity>
     )
 }
@@ -37,10 +36,7 @@ const styles = StyleSheet.create({
         color: Colors.black2,
         fontWeight: '600',
         fontSize: 16,
-        paddingTop: 10
-    },
-    testNumber: {
         paddingTop: 10,
-        color: Colors.black2
+        textAlign: 'center'
     }
 })

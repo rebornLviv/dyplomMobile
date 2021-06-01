@@ -1,27 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { checkValidity, loginUser, registerUser, sendSms, validateSms } from "../../api/authApi";
+import { changeUserData, getUserData } from "../../api/userApi";
 
 
-export const register = createAsyncThunk('register', (data) =>  {
+export const register = createAsyncThunk('register', (data) => {
     try {
-        console.log('try register',data)
-        return registerUser(data)    
+        console.log('try register', data)
+        return registerUser(data)
     } catch (error) {
-        console.log('error registering',error)
+        console.log('error registering', error)
     }
-    
+
 })
 
 export const login = createAsyncThunk(
     'login',
-   async (data) => {
+    async (data) => {
         try {
             const logres = await loginUser(data)
-            console.log('data to log in res',logres)
+            console.log('data to log in res', logres)
 
-            return  logres
-        }catch (e) {
-            console.log('error loggin user in ',e)
+            return logres
+        } catch (e) {
+            console.log('error loggin user in ', e)
             throw new Error(e)
         }
 
@@ -29,11 +30,11 @@ export const login = createAsyncThunk(
 )
 
 export const checkEmail = createAsyncThunk('checkEmail',
-    (email) => checkValidity('email',email)
+    (email) => checkValidity('email', email)
 )
 export const checkPhone = createAsyncThunk('checkPhone', (phone) => {
-        return checkValidity('phone',phone)
-    }
+    return checkValidity('phone', phone)
+}
 )
 
 export const checkUsername = createAsyncThunk('checkUsername',
@@ -41,14 +42,15 @@ export const checkUsername = createAsyncThunk('checkUsername',
 )
 
 export const sendSmsToPhone = createAsyncThunk('getSms',
-   async (phone) =>await  sendSms(phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1))
+    async (phone) => await sendSms(phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1))
 )
 
 export const validateCode = createAsyncThunk('validateCode',
     (response) => validateSms(response)
 )
 
-
+export const getUserProfile = createAsyncThunk('setUserProfile', () => getUserData())
+export const updateUserProfile = createAsyncThunk('updateUserProfile', (data) => changeUserData(data))
 
 
 
@@ -137,7 +139,7 @@ export const validateCode = createAsyncThunk('validateCode',
 //             console.log('Error loggin user out',error)
 //         }     
 //     }
-   
+
 // }
 
 // export const autoLogin = (user) => {
@@ -161,7 +163,7 @@ export const validateCode = createAsyncThunk('validateCode',
 //         } catch (error) {
 //             console.log('error checking name for avaliability',error)
 //         }
-        
+
 //     }
 // }
 
@@ -177,7 +179,7 @@ export const validateCode = createAsyncThunk('validateCode',
 //         } catch (error) {
 //             console.log('error checking name for avaliability',error)
 //         }
-        
+
 //     }
 //     }
 

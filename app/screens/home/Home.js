@@ -7,41 +7,8 @@ import { getAllSubjects } from '../../../redux/subjetTests/subjectTests.actions'
 import CustomHeader from '../../components/CustomHeader'
 import LoadingWrapper from '../../components/LoadingWrapper'
 import Subject from '../../components/Subject'
-import { SubjectEnum } from '../../constants/Subjects'
 
 
-const mockArray = [
-    {
-        title: 'Історія України',
-        eTitle: SubjectEnum.HISTORY_OF_UKRAINE,
-        testNum: '12'
-    },
-    {
-        title: 'Географія',
-        eTitle: SubjectEnum.GEOGRAPHY,
-        testNum: '15'
-    },
-    {
-        title: 'Українська мова',
-        eTitle: SubjectEnum.UKRAINIAN_LANGUAGE,
-        testNum: '13'
-    },
-    {
-        title: 'Укр. література',
-        eTitle: SubjectEnum.UKRAINIAN_LITERATURE,
-        testNum: '5'
-    },
-    {
-        title: 'Біологія',
-        eTitle: SubjectEnum.BIOLOGY,
-        testNum: '22'
-    },
-    {
-        title: 'Фізика',
-        eTitle: SubjectEnum.PHYSICS,
-        testNum: '13'
-    },
-].map((el, idx) => ({ ...el, id: idx.toString() }))
 
 const Home = () => {
     const { container } = styles
