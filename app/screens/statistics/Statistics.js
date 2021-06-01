@@ -27,13 +27,6 @@ const StatsItem = ({item}) => (
 const Statistics = ({route, navigation}) => {
   const {stats, loading} = useSelector((state) => state.stats);
   const dispatch = useDispatch();
-  // useEffect(
-  //     () => {
-  //         console.log('route Params', route?.params?.subject)
-
-  //         return () => navigation.setParams({ subject: null })
-  //     }, []
-  // )
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {

@@ -28,6 +28,4 @@ export const store = configureStore({
   }),
 });
 
-export const getStore = () => store;
-
 export const persistor = persistStore(store);

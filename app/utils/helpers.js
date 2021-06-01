@@ -96,7 +96,6 @@ export const calculateTestResult = (tests, answers) => {
   let maxScore = 0;
   let skippedTests = 0;
   let wrongAnswers = 0;
-  let resultsExplanationArray = [];
   tests.forEach((element, index) => {
     if (answers[index].selected === null) {
       skippedTests += 1;
